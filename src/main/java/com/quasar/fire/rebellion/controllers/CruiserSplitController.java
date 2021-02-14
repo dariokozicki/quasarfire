@@ -26,7 +26,7 @@ public class CruiserSplitController {
     }
 
     @PostMapping("/{satellite_name}")
-    public ResponseEntity<HttpStatus> processCruiserMessage(@RequestBody TopSecretSplitRequest request, @PathVariable("satellite_name") String name){
+    public ResponseEntity<HttpStatus> processCruiserMessage(@RequestBody TopSecretSplitRequest request, @PathVariable("satellite_name") String name) throws Exception {
         service.receiveMessage(request, name);
         return new ResponseEntity<>(HttpStatus.OK);
     }

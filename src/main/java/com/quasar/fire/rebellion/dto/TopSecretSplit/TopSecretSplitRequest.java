@@ -7,7 +7,6 @@ import java.util.List;
 
 @Data
 public class TopSecretSplitRequest {
-    @NonNull
     private double distance;
     @NonNull
     private List<String> message;

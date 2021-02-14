@@ -67,7 +67,7 @@ public class CruiserService {
         return satellites.stream().map(sat -> sat.getMessage().getContent()).collect(Collectors.toList());
     }
 
-    public void receiveMessage(TopSecretSplitRequest request, String satelliteName){
+    public void receiveMessage(TopSecretSplitRequest request, String satelliteName) throws Exception {
         Satellite satellite = satelliteDAO.findByName(satelliteName);
         satellite.setMessage(new Message(request.getMessage(),request.getDistance()));
     }

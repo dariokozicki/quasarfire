@@ -19,8 +19,8 @@ public class SatelliteDAOMock implements SatelliteDAO {
         );
     }
 
-    public Satellite findByName(String name) {
-        return satellites.parallelStream().filter(sat -> sat.getName().equals(name)).findAny().orElseThrow();
+    public Satellite findByName(String name) throws Exception {
+        return satellites.parallelStream().filter(sat -> sat.getName().equals(name)).findAny().orElseThrow(() -> new Exception("Satellite not found"));
     }
 
     @Override

@@ -38,7 +38,7 @@ public class MessageHelper {
                 .mapToObj(index -> {
                     String segmentA = listA.get(index);
                     String segmentB = listB.get(index);
-                    return segmentB.isBlank() ? segmentA : segmentB;
+                    return segmentB.isEmpty()? segmentA : segmentB;
                 }).collect(Collectors.toList());
     }
 
