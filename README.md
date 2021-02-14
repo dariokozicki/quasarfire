@@ -1,10 +1,14 @@
 # Operation Quasar Fire
 A Mercadolibre Exercise involving Trilateration
 
+Live demo: https://stormy-bayou-71921.herokuapp.com/
+
+Relevant documentation and the postman collection can be found on /docs/
+
+
+
 Decisiones: 
 
-    -Satelites no es una lista porque para funcionar 
-    necesita exactamente tres satelites. 
     Vi que se puede aproximar con N puntos por multilateración pero
     no cumple exactamente con que coincidan las distancias al 100%, así que opté por simplificarlo
     -Se asume que el nombre de un satélite es único para los requests; sino hubiera optado por un ID

@@ -1,9 +1,9 @@
 package com.quasar.fire.rebellion.controllers;
 
-import com.quasar.fire.rebellion.dto.TopSecret.TopSecretResponse;
-import com.quasar.fire.rebellion.dto.TopSecretSplit.TopSecretSplitRequest;
 import com.quasar.fire.rebellion.exceptions.MessageException;
 import com.quasar.fire.rebellion.exceptions.TrilaterationException;
+import com.quasar.fire.rebellion.requests.TopSecretSplitRequest;
+import com.quasar.fire.rebellion.responses.TopSecretResponse;
 import com.quasar.fire.rebellion.services.Cruiser.CruiserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,12 +21,12 @@ public class CruiserSplitController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<TopSecretResponse> processCruiserMessage() throws TrilaterationException, MessageException {
+    public ResponseEntity<TopSecretResponse> getCruiserMessage() throws TrilaterationException, MessageException {
         return new ResponseEntity<>(service.processCruiserStored(), HttpStatus.OK);
     }
 
     @PostMapping("/{satellite_name}")
-    public ResponseEntity<HttpStatus> processCruiserMessage(@RequestBody TopSecretSplitRequest request, @PathVariable("satellite_name") String name) throws Exception {
+    public ResponseEntity<HttpStatus> postCruiserMessage(@RequestBody TopSecretSplitRequest request, @PathVariable("satellite_name") String name) throws Exception {
         service.receiveMessage(request, name);
         return new ResponseEntity<>(HttpStatus.OK);
     }

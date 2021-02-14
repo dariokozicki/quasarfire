@@ -1,4 +1,4 @@
-package com.quasar.fire.rebellion.dto.TopSecret;
+package com.quasar.fire.rebellion.dto;
 
 import com.quasar.fire.rebellion.entity.Location;
 import lombok.AllArgsConstructor;

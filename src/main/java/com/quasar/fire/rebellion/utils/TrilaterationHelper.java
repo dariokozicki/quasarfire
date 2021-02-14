@@ -2,7 +2,6 @@ package com.quasar.fire.rebellion.utils;
 
 
 import com.quasar.fire.rebellion.entity.Location;
-import com.quasar.fire.rebellion.entity.Message;
 import com.quasar.fire.rebellion.entity.Satellite;
 import com.quasar.fire.rebellion.exceptions.TrilaterationException;
 
@@ -44,11 +43,11 @@ public class TrilaterationHelper {
     }
 
     private double A(){
-        return -2*s1.getLocation().getPosX() + 2*s2.getLocation().getPosX();
+        return -2*s1.getPosX() + 2*s2.getPosX();
     }
 
     private double B(){
-        return -2*s1.getLocation().getPosY() + 2*s2.getLocation().getPosY();
+        return -2*s1.getPosY() + 2*s2.getPosY();
     }
 
     private double C(){

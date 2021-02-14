@@ -1,9 +1,9 @@
 package com.quasar.fire.rebellion.controllers;
 
-import com.quasar.fire.rebellion.dto.TopSecret.TopSecretRequest;
-import com.quasar.fire.rebellion.dto.TopSecret.TopSecretResponse;
 import com.quasar.fire.rebellion.exceptions.MessageException;
 import com.quasar.fire.rebellion.exceptions.TrilaterationException;
+import com.quasar.fire.rebellion.requests.TopSecretRequest;
+import com.quasar.fire.rebellion.responses.TopSecretResponse;
 import com.quasar.fire.rebellion.services.Cruiser.CruiserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

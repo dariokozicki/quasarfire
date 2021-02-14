@@ -1,16 +1,15 @@
 package com.quasar.fire.rebellion.services.Cruiser;
 
-import com.quasar.fire.rebellion.controllers.ExceptionController;
 import com.quasar.fire.rebellion.dao.Satellite.SatelliteDAO;
-import com.quasar.fire.rebellion.dto.TopSecret.SatelliteDTO;
-import com.quasar.fire.rebellion.dto.TopSecret.TopSecretRequest;
-import com.quasar.fire.rebellion.dto.TopSecret.TopSecretResponse;
-import com.quasar.fire.rebellion.dto.TopSecretSplit.TopSecretSplitRequest;
+import com.quasar.fire.rebellion.dto.SatelliteDTO;
 import com.quasar.fire.rebellion.entity.Location;
 import com.quasar.fire.rebellion.entity.Message;
 import com.quasar.fire.rebellion.entity.Satellite;
 import com.quasar.fire.rebellion.exceptions.MessageException;
 import com.quasar.fire.rebellion.exceptions.TrilaterationException;
+import com.quasar.fire.rebellion.requests.TopSecretRequest;
+import com.quasar.fire.rebellion.requests.TopSecretSplitRequest;
+import com.quasar.fire.rebellion.responses.TopSecretResponse;
 import com.quasar.fire.rebellion.utils.MessageHelper;
 import com.quasar.fire.rebellion.utils.TrilaterationHelper;
 import lombok.Data;
@@ -18,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

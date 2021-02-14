@@ -1,5 +1,6 @@
-package com.quasar.fire.rebellion.dto.TopSecret;
+package com.quasar.fire.rebellion.requests;
 
+import com.quasar.fire.rebellion.dto.SatelliteDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;

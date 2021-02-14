@@ -1,4 +1,4 @@
-package com.quasar.fire.rebellion.dto.TopSecret;
+package com.quasar.fire.rebellion.requests;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +8,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class SatelliteDTO {
-    private String name;
+public class TopSecretSplitRequest {
     private double distance;
     @NonNull
     private List<String> message;

@@ -28,7 +28,7 @@ public class ExceptionController {
     @ExceptionHandler(value = {Exception.class})
     public ResponseEntity<HttpStatus> handleException(Exception ex){
         logger.error("A request was met with an unknown exception: " + ex.getMessage());
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
