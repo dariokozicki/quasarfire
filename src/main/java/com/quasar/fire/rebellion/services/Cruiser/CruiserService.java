@@ -1,5 +1,6 @@
 package com.quasar.fire.rebellion.services.Cruiser;
 
+import com.quasar.fire.rebellion.controllers.ExceptionController;
 import com.quasar.fire.rebellion.dao.Satellite.SatelliteDAO;
 import com.quasar.fire.rebellion.dto.TopSecret.SatelliteDTO;
 import com.quasar.fire.rebellion.dto.TopSecret.TopSecretRequest;
@@ -13,6 +14,8 @@ import com.quasar.fire.rebellion.exceptions.TrilaterationException;
 import com.quasar.fire.rebellion.utils.MessageHelper;
 import com.quasar.fire.rebellion.utils.TrilaterationHelper;
 import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -21,6 +24,8 @@ import java.util.stream.Collectors;
 @Data
 @Service("CruiserService")
 public class CruiserService {
+    private static final Logger logger = LoggerFactory.getLogger(CruiserService.class);
+
     private SatelliteDAO satelliteDAO;
 
     @Autowired
@@ -37,12 +42,15 @@ public class CruiserService {
     }
 
     public TopSecretResponse processCruiserMessages(TopSecretRequest request) throws MessageException, TrilaterationException {
+        logger.info("Received request to process a cruiser's message and location");
         List<Satellite> satellites = satelliteDAO.findByNames(request.getSatelliteNames());
         setSatelliteMessages(satellites, request.getSatellites());
-        return new TopSecretResponse(
+        TopSecretResponse res = new TopSecretResponse(
             getLocation(satellites),
             getMessage(request.getMessages())
         );
+        logger.info("Request to process a cruiser's message and location completed successfully");
+        return res;
     }
 
     private void setSatelliteMessages(List<Satellite> satellites, List<SatelliteDTO> dtos){
@@ -56,11 +64,14 @@ public class CruiserService {
     }
 
     public TopSecretResponse processCruiserStored() throws MessageException, TrilaterationException {
+        logger.info("Received request to process the satellites' current messages and locations");
         List<Satellite> satellites = satelliteDAO.findAll();
-        return new TopSecretResponse(
+        TopSecretResponse res = new TopSecretResponse(
                 getLocation(satellites),
                 getMessage(getMessages(satellites))
         );
+        logger.info("Request to process current messages and locations completed successfully");
+        return res;
     }
 
     private List<List<String>> getMessages(List<Satellite> satellites){
@@ -68,7 +79,9 @@ public class CruiserService {
     }
 
     public void receiveMessage(TopSecretSplitRequest request, String satelliteName) throws Exception {
+        logger.info("Received request to set " + satelliteName + "'s message to " + request.getMessage());
         Satellite satellite = satelliteDAO.findByName(satelliteName);
         satellite.setMessage(new Message(request.getMessage(),request.getDistance()));
+        logger.info(satelliteName + "'s message was successfully set to " + request.getMessage());
     }
 }
