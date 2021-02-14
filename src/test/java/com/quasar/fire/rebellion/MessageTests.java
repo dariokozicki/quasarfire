@@ -2,7 +2,6 @@ package com.quasar.fire.rebellion;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.quasar.fire.rebellion.entity.Message;
 import com.quasar.fire.rebellion.exceptions.MessageException;
 import com.quasar.fire.rebellion.utils.MessageHelper;
 import org.junit.jupiter.api.BeforeEach;

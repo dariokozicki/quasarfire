@@ -12,6 +12,12 @@ import java.util.List;
 public class Satellite {
     private String name;
     private Location location;
+    private Message message;
+
+    public Satellite(String name, Location location){
+        this.name = name;
+        this.location = location;
+    }
 
     public double getPosX() {
         return location.getPosX();
