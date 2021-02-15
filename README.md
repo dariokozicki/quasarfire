@@ -3,6 +3,8 @@ A Mercadolibre Exercise involving Trilateration
 
 Live demo: https://stormy-bayou-71921.herokuapp.com/
 
+Postman Documentation: https://documenter.getpostman.com/view/10250820/TWDTKyPi
+
 Relevant documentation and the postman collection can be found on /docs/
 
 

@@ -1,0 +1,470 @@
+{
+	"info": {
+		"_postman_id": "f1f3c8b9-b6c3-4849-b2cb-3096641ffc9c",
+		"name": "Mercadolibre Quasar Fire",
+		"description": "Operation Quasar Fire is a Star Wars based application consisting of three basic requests:\nPOST /topsecret/\nGET /topsecret_split/\nPOST /topsecret_split/{name}\n\nThe objective is to determine the location and message of a missing cruiser, having three stationary satellites. Validations for the distances and the messages are in place for QA purposes.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Top Secret",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"satellites\": \r\n    [ \r\n        { \r\n            \"name\": \"kenobi\", \r\n            \"distance\": 707.1067812, \r\n            \"message\": [\"este\", \"\", \"\", \"mensaje\", \"\"] \r\n        }, \r\n        { \r\n            \"name\": \"skywalker\", \r\n            \"distance\": 781.0249676, \r\n            \"message\": [\"\", \"es\", \"\", \"\", \"secreto\"] \r\n        }, \r\n        { \r\n            \"name\": \"sato\", \r\n            \"distance\": 984.8857802,\r\n            \"message\": [\"este\", \"\", \"un\", \"\", \"\"] \r\n        } \r\n    ] \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/topsecret/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"topsecret",
+						""
+					]
+				},
+				"description": "Receives a list of satellite names with the distances and messages that they've received. In turn, returns Status 200, the position of the cruiser and the recovered message if both are retrievable; or 404 if one or more of them is not."
+			},
+			"response": [
+				{
+					"name": "Not found: Position can't be recovered",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"satellites\": // no hay punto que satisfaga las distancias basado en la posición de los satelites\r\n    [ \r\n        { \r\n            \"name\": \"kenobi\", \r\n            \"distance\": 100.0, \r\n            \"message\": [\"este\", \"\", \"\", \"mensaje\", \"\"] \r\n        }, \r\n        { \r\n            \"name\": \"skywalker\", \r\n            \"distance\": 115.5, \r\n            \"message\": [\"\", \"es\", \"\", \"\", \"secreto\"] \r\n        }, \r\n        { \r\n            \"name\": \"sato\", \r\n            \"distance\": 142.7,\r\n            \"message\": [\"este\", \"\", \"un\", \"\", \"\"] \r\n        } \r\n    ] \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/topsecret/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"topsecret",
+								""
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 14 Feb 2021 06:39:47 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"satellites\": \r\n    [ \r\n        { \r\n            \"name\": \"kenobi\", \r\n            \"distance\": 707.1067812, \r\n            \"message\": [\"este\", \"\", \"\", \"mensaje\", \"\"] \r\n        }, \r\n        { \r\n            \"name\": \"skywalker\", \r\n            \"distance\": 781.0249676, \r\n            \"message\": [\"\", \"es\", \"\", \"\", \"secreto\"] \r\n        }, \r\n        { \r\n            \"name\": \"sato\", \r\n            \"distance\": 984.8857802,\r\n            \"message\": [\"este\", \"\", \"un\", \"\", \"\"] \r\n        } \r\n    ] \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/topsecret/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"topsecret",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 14 Feb 2021 06:17:52 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"location\": {\n        \"posX\": -399.9999999784569,\n        \"posY\": 499.99999989295964\n    },\n    \"message\": \"este es un mensaje secreto\"\n}"
+				},
+				{
+					"name": "Not Found: Message can't be recovered",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"satellites\": // no tengo forma de recuperar el segmento del tercer lugar\r\n    [ \r\n        { \r\n            \"name\": \"kenobi\", \r\n            \"distance\": 707.1067812, \r\n            \"message\": [\"qué\", \"podría\", \"\", \"mal\"] \r\n        }, \r\n        { \r\n            \"name\": \"skywalker\", \r\n            \"distance\": 781.0249676, \r\n            \"message\": [\"\", \"\", \"\", \"\"] \r\n        }, \r\n        { \r\n            \"name\": \"sato\", \r\n            \"distance\": 984.8857802,\r\n            \"message\": [\"\", \"\", \"\", \"\"] \r\n        } \r\n    ] \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/topsecret/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"topsecret",
+								""
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 14 Feb 2021 06:49:10 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Top Secret Split",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/topsecret_split/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"topsecret_split",
+						""
+					]
+				},
+				"description": "Retrieves the Cruiser's location based on previous messages and distances POSTed previously, whenever possible. Otherwise returns 404."
+			},
+			"response": [
+				{
+					"name": "Not found: Not all satellites have messages yet / Message can't be recovered",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/topsecret_split/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"topsecret_split",
+								""
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Feb 2021 03:51:14 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/topsecret_split/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"topsecret_split",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Feb 2021 03:51:51 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"location\": {\n        \"posX\": -399.9999999784569,\n        \"posY\": 499.99999989295964\n    },\n    \"message\": \"este es un mensaje secreto\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Top Secret Split",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"distance\": 100.0,\r\n    \"message\": [\"este\", \"es\", \"un\", \"\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/topsecret_split/skywalker",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"topsecret_split",
+						"skywalker"
+					]
+				},
+				"description": "Receives the distance and message as interpreted by a particular satellite, whose name is on the URI as a PathVariable."
+			},
+			"response": [
+				{
+					"name": "Invalid JSON",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"distance\": 100.0,,,,,,,,,,\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/topsecret_split/skywalker",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"topsecret_split",
+								"skywalker"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Feb 2021 07:12:21 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"Invalid JSON format\"\n}"
+				},
+				{
+					"name": "Request with missing field",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"distance\": 100.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/topsecret_split/skywalker",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"topsecret_split",
+								"skywalker"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Feb 2021 07:11:57 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"description\": \"Message must not be Null\"\n}"
+				},
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"distance\": 100.0,\r\n    \"message\": [\"este\", \"\", \"\", \"mensaje\", \"\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/topsecret_split/skywalker",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"topsecret_split",
+								"skywalker"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Feb 2021 03:52:42 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	]
+}

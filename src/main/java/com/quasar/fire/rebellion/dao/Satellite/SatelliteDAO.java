@@ -9,4 +9,5 @@ public interface SatelliteDAO {
     Satellite findByName(String name) throws Exception;
     List<Satellite> findByNames(List<String> names);
     List<Satellite> findAll();
+
 }

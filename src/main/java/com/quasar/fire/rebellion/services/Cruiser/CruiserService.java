@@ -7,9 +7,9 @@ import com.quasar.fire.rebellion.entity.Message;
 import com.quasar.fire.rebellion.entity.Satellite;
 import com.quasar.fire.rebellion.exceptions.MessageException;
 import com.quasar.fire.rebellion.exceptions.TrilaterationException;
-import com.quasar.fire.rebellion.requests.TopSecretRequest;
-import com.quasar.fire.rebellion.requests.TopSecretSplitRequest;
-import com.quasar.fire.rebellion.responses.TopSecretResponse;
+import com.quasar.fire.rebellion.dto.requests.TopSecretRequest;
+import com.quasar.fire.rebellion.dto.requests.TopSecretSplitRequest;
+import com.quasar.fire.rebellion.dto.responses.TopSecretResponse;
 import com.quasar.fire.rebellion.utils.MessageHelper;
 import com.quasar.fire.rebellion.utils.TrilaterationHelper;
 import lombok.Data;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Data
 @Service("CruiserService")
-public class CruiserService {
+public class CruiserService implements ICruiserService {
     private static final Logger logger = LoggerFactory.getLogger(CruiserService.class);
 
     private SatelliteDAO satelliteDAO;
@@ -41,6 +41,7 @@ public class CruiserService {
         return new MessageHelper().getMessage(messages);
     }
 
+    @Override
     public TopSecretResponse processCruiserMessages(TopSecretRequest request) throws MessageException, TrilaterationException {
         logger.info("Received request to process a cruiser's message and location");
         List<Satellite> satellites = satelliteDAO.findByNames(request.getSatelliteNames());
@@ -63,6 +64,7 @@ public class CruiserService {
         });
     }
 
+    @Override
     public TopSecretResponse processCruiserStored() throws MessageException, TrilaterationException {
         logger.info("Received request to process the satellites' current messages and locations");
         List<Satellite> satellites = satelliteDAO.findAll();
@@ -78,6 +80,7 @@ public class CruiserService {
         return satellites.stream().map(sat -> sat.getMessage().getContent()).collect(Collectors.toList());
     }
 
+    @Override
     public void receiveMessage(TopSecretSplitRequest request, String satelliteName) throws Exception {
         logger.info("Received request to set " + satelliteName + "'s message to " + request.getMessage());
         Satellite satellite = satelliteDAO.findByName(satelliteName);
