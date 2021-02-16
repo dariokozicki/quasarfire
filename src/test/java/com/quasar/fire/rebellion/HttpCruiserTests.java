@@ -5,11 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.quasar.fire.rebellion.dto.SatelliteDTO;
 import com.quasar.fire.rebellion.dto.requests.TopSecretRequest;
 import com.quasar.fire.rebellion.dto.requests.TopSecretSplitRequest;
-import com.quasar.fire.rebellion.entity.Location;
-import com.quasar.fire.rebellion.entity.Satellite;
-import com.quasar.fire.rebellion.repository.Satellite.ISatelliteRepository;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -28,21 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class HttpCruiserTests {
     public static ObjectMapper mapper;
-
     @Autowired
-    private ISatelliteRepository satelliteRepository;
-
-    @BeforeEach
-    public void testLoadInitialData(){
-        satelliteRepository.saveAll(
-            Arrays.asList(
-                new Satellite("kenobi", new Location(-500,-200)),
-                new Satellite("skywalker", new Location(100,-100)),
-                new Satellite("sato", new Location(500,100))
-            )
-        );
-        satelliteRepository.flush();
-    }
+    private MockMvc mockMvc;
 
     @BeforeAll
     static void initialize(){
@@ -50,14 +33,6 @@ public class HttpCruiserTests {
         mapper.setVisibility(mapper.getSerializationConfig().getDefaultVisibilityChecker()
             .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
             .withGetterVisibility(JsonAutoDetect.Visibility.NONE));
-    }
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Test
-    public void shouldReturnNotFound() throws Exception{
-        this.mockMvc.perform(get("/topsecret_split/")).andExpect(status().isNotFound());
     }
 
     @Test

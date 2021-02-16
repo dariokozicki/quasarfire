@@ -8,6 +8,11 @@ Postman Documentation: https://documenter.getpostman.com/view/10250820/TWDTKyPi
 Relevant documentation and the postman collection can be found on /docs/
 
 ## How to run the application
+
+### Prerequisites
+- [Java 8 JDK](https://www.oracle.com/ar/java/technologies/javase/javase-jdk8-downloads.html)
+- [Postgres 12](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) 
+- You need to have a valid Postgresql connection. You can go to **./src/resources/application.properties** to customize the endpoint.
 ### In Intellij
 - Open Intellij IDEA
 - Go to File -> Open
@@ -18,7 +23,7 @@ Relevant documentation and the postman collection can be found on /docs/
 ![run application](./docs/spring_run.png "Run application")
 
 ### Testing with Intellij
-- You will find tests under the ./test folder.
+- You will find tests under the **./src/test/java** folder.
 - By right-clicking on the folder and pressing "Run All Tests", the results should appear in the Debug View
 
 ![test application](./docs/spring_test.png "Test application")
@@ -50,6 +55,7 @@ Relevant documentation and the postman collection can be found on /docs/
 - Messages' offset are assumed to only occur at the beginning and not at the end, although they can be different lengths between each other
 - If, after accounting for the offset, none of the messages has the segment, said segment cannot be recovered and an exception will be thrown
 - TrilaterationHelper has non-expressive private methods. This is because they are used for calculations that don't have an object-oriented meaning, and is deliberate so as to make the overall equation easy to understand.
+- The sql connection uses ddl-auto=create, which means that it will recreate the tables and data each time it runs. This helps to test different case scenarios but is not suitable for production environments.
 
 ### Explanation for Helpers
 
@@ -104,3 +110,5 @@ Once they're synced, we can reduce the lists, 'merging' each segment with the ot
 This results in the actual message being returned.
 
 If any empty segment is left, an exception is thrown.
+
+### Thanks for reading.
