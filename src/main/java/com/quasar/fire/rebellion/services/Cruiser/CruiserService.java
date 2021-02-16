@@ -1,15 +1,15 @@
 package com.quasar.fire.rebellion.services.Cruiser;
 
-import com.quasar.fire.rebellion.dao.Satellite.SatelliteDAO;
+import com.quasar.fire.rebellion.repository.Satellite.ISatelliteRepository;
 import com.quasar.fire.rebellion.dto.SatelliteDTO;
+import com.quasar.fire.rebellion.dto.requests.TopSecretRequest;
+import com.quasar.fire.rebellion.dto.requests.TopSecretSplitRequest;
+import com.quasar.fire.rebellion.dto.responses.TopSecretResponse;
 import com.quasar.fire.rebellion.entity.Location;
 import com.quasar.fire.rebellion.entity.Message;
 import com.quasar.fire.rebellion.entity.Satellite;
 import com.quasar.fire.rebellion.exceptions.MessageException;
 import com.quasar.fire.rebellion.exceptions.TrilaterationException;
-import com.quasar.fire.rebellion.dto.requests.TopSecretRequest;
-import com.quasar.fire.rebellion.dto.requests.TopSecretSplitRequest;
-import com.quasar.fire.rebellion.dto.responses.TopSecretResponse;
 import com.quasar.fire.rebellion.utils.MessageHelper;
 import com.quasar.fire.rebellion.utils.TrilaterationHelper;
 import lombok.Data;
@@ -26,10 +26,10 @@ import java.util.stream.Collectors;
 public class CruiserService implements ICruiserService {
     private static final Logger logger = LoggerFactory.getLogger(CruiserService.class);
 
-    private SatelliteDAO satelliteDAO;
+    private ISatelliteRepository satelliteDAO;
 
     @Autowired
-    public CruiserService(SatelliteDAO satelliteDAO){
+    public CruiserService(ISatelliteRepository satelliteDAO){
         this.satelliteDAO = satelliteDAO;
     }
 
@@ -44,12 +44,13 @@ public class CruiserService implements ICruiserService {
     @Override
     public TopSecretResponse processCruiserMessages(TopSecretRequest request) throws MessageException, TrilaterationException {
         logger.info("Received request to process a cruiser's message and location");
-        List<Satellite> satellites = satelliteDAO.findByNames(request.getSatelliteNames());
+        List<Satellite> satellites = satelliteDAO.getByNameIn(request.getSatelliteNames());
         setSatelliteMessages(satellites, request.getSatellites());
         TopSecretResponse res = new TopSecretResponse(
             getLocation(satellites),
             getMessage(request.getMessages())
         );
+        satelliteDAO.saveAll(satellites);
         logger.info("Request to process a cruiser's message and location completed successfully");
         return res;
     }
@@ -83,8 +84,9 @@ public class CruiserService implements ICruiserService {
     @Override
     public void receiveMessage(TopSecretSplitRequest request, String satelliteName) throws Exception {
         logger.info("Received request to set " + satelliteName + "'s message to " + request.getMessage());
-        Satellite satellite = satelliteDAO.findByName(satelliteName);
+        Satellite satellite = satelliteDAO.getByName(satelliteName);
         satellite.setMessage(new Message(request.getMessage(),request.getDistance()));
+        satelliteDAO.save(satellite);
         logger.info(satelliteName + "'s message was successfully set to " + request.getMessage());
     }
 }

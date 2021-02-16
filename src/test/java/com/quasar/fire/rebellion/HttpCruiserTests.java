@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.quasar.fire.rebellion.dto.SatelliteDTO;
 import com.quasar.fire.rebellion.dto.requests.TopSecretRequest;
 import com.quasar.fire.rebellion.dto.requests.TopSecretSplitRequest;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import com.quasar.fire.rebellion.entity.Location;
+import com.quasar.fire.rebellion.entity.Satellite;
+import com.quasar.fire.rebellion.repository.Satellite.ISatelliteRepository;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +29,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class HttpCruiserTests {
     public static ObjectMapper mapper;
+
+    @Autowired
+    private ISatelliteRepository satelliteRepository;
+
+    @BeforeEach
+    public void testLoadInitialData(){
+        satelliteRepository.saveAll(
+            Arrays.asList(
+                new Satellite("kenobi", new Location(-500,-200)),
+                new Satellite("skywalker", new Location(100,-100)),
+                new Satellite("sato", new Location(500,100))
+            )
+        );
+        satelliteRepository.flush();
+    }
 
     @BeforeAll
     static void initialize(){

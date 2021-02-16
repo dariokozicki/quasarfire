@@ -82,8 +82,8 @@ This resolves to a linear set of equations of the type:
 
 By solving it we're left with:
 
-8) x = CE−FB / EA−BD
-9) y = CD−AF / BD−AE
+8) x = (CE−FB) / (EA−BD)
+9) y = (CD−AF) / (BD−AE)
 
 Which are the equations that we see inside getPosX and getPosY.
 In turn, although we gain a straight forward calculation, we lose expressiveness in the Helper and that is the reason they're marked as private.
